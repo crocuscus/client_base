@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<project name="setupDB" basedir="." default="all">
+        <property file="build.properties"/>
+	<target name="dropTables">
+		<echo message="Drop tables using: ${db.driver} ${db.url}" />
+		<sql driver="${db.driver}" url="${db.url}" userid="${db.user}" password="${db.pw}" onerror="continue">
+			<transaction src="drop.sql" />
+		</sql>
+	</target>
+
+	<target name="createTables">
+		<echo message="Create tables using: ${db.driver} ${db.url}" />
+		<sql driver="${db.driver}" url="${db.url}" userid="${db.user}" password="${db.pw}" onerror="continue">
+			<transaction src="create.sql" />
+		</sql>
+	</target>
+
+	<target name="emptyTables">
+		<echo message="Emptying tables using: ${db.driver} ${db.url}" />
+		<sql driver="${db.driver}" url="${db.url}" userid="${db.user}" password="${db.pw}">
+			<transaction src="delete.sql" />
+		</sql>
+	</target>
+
+	<target name="fillTables">
+		<echo message="Filling tables using: ${db.driver} ${db.url}" />
+		<sql driver="${db.driver}" url="${db.url}" userid="${db.user}" password="${db.pw}">
+			<transaction src="insert.sql" />
+		</sql>
+	</target>
+
+	<target name="all" depends="dropTables,createTables,emptyTables,fillTables" />
+
+</project>
