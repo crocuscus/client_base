@@ -13,7 +13,11 @@ import javax.persistence.*;
 @NamedQuery(name="ClientContact.findAll", query="SELECT c FROM ClientContact c")
 public class ClientContact implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+		
+	@Id
+	@Column(name="contact_id")
+	private Integer Id;
+	
 	@Column(name="contact_name")
 	private String contactName;
 
@@ -29,6 +33,14 @@ public class ClientContact implements Serializable {
 	public ClientContact() {
 	}
 
+	public Integer getId() {
+		return this.Id;
+	}
+
+	public void setId(Integer id) {
+		this.Id = id;
+	}
+	
 	public String getContactName() {
 		return this.contactName;
 	}

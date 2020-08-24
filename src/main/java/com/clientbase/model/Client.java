@@ -21,17 +21,19 @@ public class Client implements Serializable {
 	@Column(name="client_type")
 	private Boolean clientType;
 
+	private String fullname;
+	
 	//bi-directional many-to-one association to ClientContact
 	@OneToMany(mappedBy="client")
 	private List<ClientContact> clientContacts;
 
 	//bi-directional many-to-one association to IndividualClient
-	@OneToMany(mappedBy="client")
-	private List<IndividualClient> individualClients;
+	@OneToOne(mappedBy="client")
+	private IndividualClient individualClient;
 
 	//bi-directional many-to-one association to LegalClient
-	@OneToMany(mappedBy="client")
-	private List<LegalClient> legalClients;
+	@OneToOne(mappedBy="client")
+	private LegalClient legalClient;
 
 	//bi-directional many-to-one association to OrderHistory
 	@OneToMany(mappedBy="client")
@@ -55,28 +57,36 @@ public class Client implements Serializable {
 	public void setClientType(Boolean clientType) {
 		this.clientType = clientType;
 	}
+	
+	public String getFullname() {
+		return this.fullname;
+	}
 
-//	public List<ClientContact> getClientContacts() {
-//		return this.clientContacts;
-//	}
-//
-//	public void setClientContacts(List<ClientContact> clientContacts) {
-//		this.clientContacts = clientContacts;
-//	}
-//
-//	public ClientContact addClientContact(ClientContact clientContact) {
-//		getClientContacts().add(clientContact);
-//		clientContact.setClient(this);
-//
-//		return clientContact;
-//	}
-//
-//	public ClientContact removeClientContact(ClientContact clientContact) {
-//		getClientContacts().remove(clientContact);
-//		clientContact.setClient(null);
-//
-//		return clientContact;
-//	}
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public List<ClientContact> getClientContacts() {
+		return this.clientContacts;
+	}
+
+	public void setClientContacts(List<ClientContact> clientContacts) {
+		this.clientContacts = clientContacts;
+	}
+
+	public ClientContact addClientContact(ClientContact clientContact) {
+		getClientContacts().add(clientContact);
+		clientContact.setClient(this);
+
+		return clientContact;
+	}
+
+	public ClientContact removeClientContact(ClientContact clientContact) {
+		getClientContacts().remove(clientContact);
+		clientContact.setClient(null);
+
+		return clientContact;
+	}
 //
 //	public List<IndividualClient> getIndividualClients() {
 //		return this.individualClients;

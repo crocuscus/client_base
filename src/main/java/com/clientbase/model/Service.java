@@ -10,13 +10,13 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Service.findAll", query="SELECT s FROM Service s")
+@NamedQuery(name="Service.findAll", query="SELECT s FROM Service s WHERE prescence_flag is true")
 public class Service implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="service_id")
-	private Integer serviceId;
+	private Short serviceId;
 
 	@Column(name="prescence_flag")
 	private Boolean prescenceFlag;
@@ -33,11 +33,11 @@ public class Service implements Serializable {
 	public Service() {
 	}
 
-	public Integer getServiceId() {
+	public Short getServiceId() {
 		return this.serviceId;
 	}
 
-	public void setServiceId(Integer serviceId) {
+	public void setServiceId(Short serviceId) {
 		this.serviceId = serviceId;
 	}
 

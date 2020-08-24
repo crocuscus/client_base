@@ -1,4 +1,4 @@
-package com.clientbase.model;
+	package com.clientbase.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -94,7 +94,7 @@ public class Employee implements Serializable {
 		return this.firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void	 setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 

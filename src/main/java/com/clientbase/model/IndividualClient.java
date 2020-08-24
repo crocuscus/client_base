@@ -33,7 +33,8 @@ public class IndividualClient implements Serializable {
 	private String surname;
 
 	//bi-directional many-to-one association to Client
-	@ManyToOne
+	@Id
+	@OneToOne
 	@JoinColumn(name="client_id")
 	private Client client;
 

@@ -15,27 +15,18 @@ import javax.persistence.*;
 public class LegalClient implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String fullname;
-
 	@Column(name="short_name")
 	private String shortName;
 
 	private String tin;
 
-	//bi-directional many-to-one association to Client
-	@ManyToOne
+	//bi-directional one-to-one association to Client
+	@Id
+	@OneToOne
 	@JoinColumn(name="client_id")
 	private Client client;
 
 	public LegalClient() {
-	}
-
-	public String getFullname() {
-		return this.fullname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
 	}
 
 	public String getShortName() {

@@ -17,7 +17,7 @@ public class EmployeeStatus implements Serializable {
 
 	@Id
 	@Column(name="status_id")
-	private Integer statusId;
+	private Short statusId;
 
 	@Column(name="status_name")
 	private String statusName;
@@ -29,11 +29,11 @@ public class EmployeeStatus implements Serializable {
 	public EmployeeStatus() {
 	}
 
-	public Integer getStatusId() {
+	public Short getStatusId() {
 		return this.statusId;
 	}
 
-	public void setStatusId(Integer statusId) {
+	public void setStatusId(Short statusId) {
 		this.statusId = statusId;
 	}
 
