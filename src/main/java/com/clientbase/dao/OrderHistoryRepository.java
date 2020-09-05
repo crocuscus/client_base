@@ -4,9 +4,11 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Repository;
 
@@ -48,4 +50,20 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
 		order = saveAndFlush(order);
 		return Pair.of(Optional.of(order), "ok");
 	}
+	
+	@Query(value = "select client.fullname," + 
+			"   service.service_name," + 
+			"   employee.first_name," + 
+			"   order_history.from_dttm," + 
+			"   order_history.to_dttm "
+			+ "FROM client inner join order_history USING (client_id)" + 
+			"		   	   inner join workload USING (order_id)" + 
+			"		       inner join employee USING (employee_id)" + 
+			"		       inner join service USING (service_id)"
+			+ "WHERE client_id in :clients AND"
+			+ "      service_id in :services AND"
+			+ "      employee_id in :employees AND"
+			+ "      to_dttm <= :to AND from_dttm >= :from"
+			+ "      ", nativeQuery = true)
+	public List<Object[]> filterHistory(List<Integer> clients, List<Integer> employees, Timestamp from, Timestamp to, List<Short> services);
 }

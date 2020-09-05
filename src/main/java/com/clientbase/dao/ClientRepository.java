@@ -22,13 +22,24 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 
 	
 	@Transactional
-	public default Pair<Optional<Client>, String> addOrUpdateClient(Integer id,	Boolean clientType, Map<String, String> fields_dict, String fullname, List<ClientContact> contacts, LegalClientRepository legalRep, IndividualClientRepository indiRep) throws ParseException {
+	public default Pair<Optional<Client>, String> addOrUpdateClient(
+			Integer id,	
+			Boolean clientType, 
+			Map<String, String> fields_dict, 
+			String fullname, 
+			List<ClientContact> contacts, 
+			LegalClientRepository legalRep, 
+			IndividualClientRepository indiRep
+	) throws ParseException {
 		if (clientType == null)
 			return Pair.of(Optional.empty(), "addOrUpdateClient: empty client type");
 		if (id != null && this.findById(id).get().getClientType() != clientType)
 			return Pair.of(Optional.empty(), "addOrUpdateClient: can't change client type");
 		if (fullname == null)
 			return Pair.of(Optional.empty(), "addOrUpdateClient: empty fullname");
+		if (legalRep == null || indiRep == null) {
+			return Pair.of(Optional.empty(), "addOrUpdateClient: legal and individual repo must be not null");
+		}
 
 		Client client = new Client();
 		client.setClientType(clientType);
@@ -37,7 +48,7 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 		if (id != null)
 			client.setClientId(id);
 
-		if (clientType) {
+		if (!clientType) {
 			var can = legalRep.canAddOrUpdateLegalClient(fields_dict);
 			if (!can.getFirst()) {
 				return Pair.of(Optional.empty(), "addOrUpdateClient: " + can.getSecond());
