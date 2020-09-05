@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Repository;
 
-import com.clientbase.model.Client;
 import com.clientbase.model.IndividualClient;
 
 @Repository
@@ -32,7 +31,7 @@ public interface IndividualClientRepository extends JpaRepository<IndividualClie
 		return Pair.of(true, "ok");
 	}	
 		
-	public default void addOrUpdateIndividualClient(Client id, Map<String, String> fields_dict) {
+	public default void addOrUpdateIndividualClient(Integer id, Map<String, String> fields_dict) {
 		IndividualClient client = new IndividualClient();
 		client.setFirstName(fields_dict.get("first_name"));
 		client.setSecondName(fields_dict.get("second_name"));
@@ -43,7 +42,7 @@ public interface IndividualClientRepository extends JpaRepository<IndividualClie
 		String passport_date = fields_dict.get("passport_date");
 		if (passport_date != null)
 			client.setPassportDate(formatter.parse(passport_date));
-		client.setClient(id);
+		client.setClientId(id);
 		saveAndFlush(client);
 	}
 

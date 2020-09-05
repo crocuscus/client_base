@@ -34,9 +34,8 @@ public class IndividualClient implements Serializable {
 
 	//bi-directional many-to-one association to Client
 	@Id
-	@OneToOne
-	@JoinColumn(name="client_id")
-	private Client client;
+	@Column(name="client_id")
+	private Integer clientId;
 
 	public IndividualClient() {
 	}
@@ -89,12 +88,12 @@ public class IndividualClient implements Serializable {
 		this.surname = surname;
 	}
 
-	public Client getClient() {
-		return this.client;
+	public Integer getClientId() {
+		return this.clientId;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
 	}
 
 }

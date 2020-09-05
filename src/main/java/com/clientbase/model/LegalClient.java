@@ -20,11 +20,9 @@ public class LegalClient implements Serializable {
 
 	private String tin;
 
-	//bi-directional one-to-one association to Client
 	@Id
-	@OneToOne
-	@JoinColumn(name="client_id")
-	private Client client;
+	@Column(name="client_id")
+	private Integer clientId;
 
 	public LegalClient() {
 	}
@@ -45,12 +43,12 @@ public class LegalClient implements Serializable {
 		this.tin = tin;
 	}
 
-	public Client getClient() {
-		return this.client;
+	public Integer getClientId() {
+		return this.clientId;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
 	}
 
 }

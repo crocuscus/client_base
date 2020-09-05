@@ -18,38 +18,37 @@ public class Client implements Serializable {
 	@SequenceGenerator(name = "Client_ID_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="Client_ID_seq")
 	@Column(name="client_id")
-	private Integer Id;
+	private Integer clientId;
 
 	@Column(name="client_type")
 	private Boolean clientType;
 
 	private String fullname;
-	
-	//bi-directional many-to-one association to ClientContact
-	@OneToMany(mappedBy="client")
-	private List<ClientContact> clientContacts;
 
-	//bi-directional many-to-one association to IndividualClient
-	@OneToOne(mappedBy="client")
-	private IndividualClient individualClient;
+	 //bi-directional many-to-one association to ClientContact
+	 @OneToMany(mappedBy="client") 
+	 private List<ClientContact> clientContacts;
+	 
+//	 //bi-directional many-to-one association to IndividualClient
+//	 @OneToOne(mappedBy="client") 
+//	 private IndividualClient individualClient;
+//	 //bi-directional many-to-one association to LegalClient
+//	 @OneToOne(mappedBy="client") 
+//	 private LegalClient legalClient;
 
-	//bi-directional many-to-one association to LegalClient
-	@OneToOne(mappedBy="client")
-	private LegalClient legalClient;
-
-	//bi-directional many-to-one association to OrderHistory
-	@OneToMany(mappedBy="client")
-	private List<OrderHistory> orderHistories;
+	 //bi-directional many-to-one association to OrderHistory
+	 @OneToMany(mappedBy="client")
+	 private List<OrderHistory> orderHistories;
 
 	public Client() {
 	}
 
 	public Integer getClientId() {
-		return this.Id;
+		return this.clientId;
 	}
 
 	public void setClientId(Integer clientId) {
-		this.Id = clientId;
+		this.clientId = clientId;
 	}
 
 	public Boolean getClientType() {
@@ -89,6 +88,36 @@ public class Client implements Serializable {
 
 		return clientContact;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((fullname == null) ? 0 : fullname.hashCode());
+		result = prime * result + clientId;
+		return result;
+	}
+ 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Client other = (Client) obj;
+		if (fullname == null) {
+			if (other.fullname != null)
+				return false;
+		} else if (!fullname.equals(other.fullname))
+			return false;
+		if (clientId != other.clientId)
+			return false;
+		return true;
+	}
+ 
 //
 //	public List<IndividualClient> getIndividualClients() {
 //		return this.individualClients;

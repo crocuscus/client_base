@@ -22,11 +22,11 @@ public interface LegalClientRepository extends JpaRepository<LegalClient, Intege
 		return Pair.of(true, "ok");
 	}
 	
-	public default void addOrUpdateLegalClient(Client id, Map<String, String> fields_dict) {
+	public default void addOrUpdateLegalClient(Integer id, Map<String, String> fields_dict) {
 		LegalClient client = new LegalClient();
 		client.setShortName(fields_dict.get("short_name"));
 		client.setTin(fields_dict.get("tin"));
-		client.setClient(id);
+		client.setClientId(id);
 		saveAndFlush(client);
 	}
 }
