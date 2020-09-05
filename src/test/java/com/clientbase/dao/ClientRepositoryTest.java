@@ -19,4 +19,9 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
 	 List<Client> intel_search = clientRep.findByFullname("Intel");
 	 assertFalse(intel_search.isEmpty());
   }
+  
+  @Test
+  public void addOrUpdateTest() {
+	  
+  }
 }

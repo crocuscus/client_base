@@ -1,11 +1,10 @@
 package com.clientbase.dao;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.util.Pair;
@@ -23,7 +22,7 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 
 	
 	@Transactional
-	public default Pair<Optional<Client>, String> addOrUpdateClient(Integer id,	Boolean clientType, Map<String, String> fields_dict, String fullname, List<ClientContact> contacts, LegalClientRepository legalRep, IndividualClientRepository indiRep) {
+	public default Pair<Optional<Client>, String> addOrUpdateClient(Integer id,	Boolean clientType, Map<String, String> fields_dict, String fullname, List<ClientContact> contacts, LegalClientRepository legalRep, IndividualClientRepository indiRep) throws ParseException {
 		if (clientType == null)
 			return Pair.of(Optional.empty(), "addOrUpdateClient: empty client type");
 		if (id != null && this.findById(id).get().getClientType() != clientType)

@@ -31,7 +31,7 @@ public interface IndividualClientRepository extends JpaRepository<IndividualClie
 		return Pair.of(true, "ok");
 	}	
 		
-	public default void addOrUpdateIndividualClient(Integer id, Map<String, String> fields_dict) {
+	public default void addOrUpdateIndividualClient(Integer id, Map<String, String> fields_dict) throws ParseException {
 		IndividualClient client = new IndividualClient();
 		client.setFirstName(fields_dict.get("first_name"));
 		client.setSecondName(fields_dict.get("second_name"));

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Repository;
 
-import com.clientbase.model.Client;
 import com.clientbase.model.LegalClient;
 
 @Repository
