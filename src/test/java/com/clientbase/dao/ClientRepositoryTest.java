@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import com.clientbase.model.Client;
 
 @SpringBootTest
-public class ClientRepositoryTest extends AbstractTestNGSpringContextTests{
+public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
   @Autowired ClientRepository clientRep;
 	
   @Test

@@ -17,6 +17,8 @@ public class OrderHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name = "OrderHistory_ID_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="OrderHistory_ID_seq")
 	@Column(name="order_id")
 	private Integer orderId;
 

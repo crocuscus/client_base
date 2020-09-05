@@ -15,6 +15,8 @@ public class ClientContact implements Serializable {
 	private static final long serialVersionUID = 1L;
 		
 	@Id
+	@SequenceGenerator(name = "ClientContact_ID_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="ClientContact_ID_seq")
 	@Column(name="contact_id")
 	private Integer Id;
 	

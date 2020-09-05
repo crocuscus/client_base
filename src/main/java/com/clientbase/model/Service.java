@@ -15,6 +15,8 @@ public class Service implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name = "Service_ID_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="Service_ID_seq")
 	@Column(name="service_id")
 	private Short serviceId;
 

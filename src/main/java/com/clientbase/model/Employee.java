@@ -16,6 +16,8 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name = "Employee_ID_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="Employee_ID_seq")
 	@Column(name="employee_id")
 	private Integer employeeId;
 

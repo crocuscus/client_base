@@ -7,5 +7,4 @@ import com.clientbase.model.EmployeeStatus;
 
 @Repository
 public interface EmployeeStatusRepository extends JpaRepository<EmployeeStatus, Short> {
-	
 } 
