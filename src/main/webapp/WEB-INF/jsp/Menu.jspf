@@ -32,7 +32,7 @@
    
     <ul id="navbar">
       <li><a href="#">Главная</a></li>
-      <li><a href="#">Прайс-лист</a></li>
+      <li><a href="/service">Прайс-лист</a></li>
       <li><a href="#">Найти сотрудника</a></li>
       <li><a href="#">Найти клиента</a></li>
       <li><a href="#">История обращений</a></li>

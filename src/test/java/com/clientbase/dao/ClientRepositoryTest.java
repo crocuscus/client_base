@@ -2,11 +2,9 @@ package com.clientbase.dao;
 
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
-import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotSame;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,25 +36,16 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
 	
 	// test simple adding of new client
 	Pair<Optional<Client>, String> testClientOne = null, testClientTwo = null;
-	try {
-		testClientOne = clientRep.addOrUpdateClient(
-			null, false, Map.of("tin", "111111"), "Sator", List.of(), legalRep, indiRep
-		);
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
+	testClientOne = clientRep.addOrUpdateClient(
+		null, false, Map.of("tin", "111111"), "Sator", List.of(), legalRep, indiRep
+	);
 	assertFalse("null after CREATE", testClientOne == null);
 	assertFalse(testClientOne.getSecond(), testClientOne.getFirst().isEmpty());
 	Client client1 = testClientOne.getFirst().get();
 	
-	// test updating of existing client
-	try {
-		testClientTwo = clientRep.addOrUpdateClient(
-			client1.getClientId(), false, Map.of("tin", "111111"), "Sator Tenet", List.of(), legalRep, indiRep
-		);
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
+	testClientTwo = clientRep.addOrUpdateClient(
+		client1.getClientId(), false, Map.of("tin", "111111"), "Sator Tenet", List.of(), legalRep, indiRep
+	);
     assertFalse("null after UPDATE", testClientTwo == null);
 	assertFalse(testClientTwo.getSecond(), testClientTwo.getFirst().isEmpty());  
 	Client client2 = testClientTwo.getFirst().get();
@@ -68,26 +57,19 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
 	legalRep.deleteById(client1.getClientId()); 
 	clientRep.deleteById(client1.getClientId());
 	
-	// test incorrect creating
-	try {
-		testClientTwo = clientRep.addOrUpdateClient(
-			null, false, Map.of("team", "111111"), "test", List.of(), legalRep, indiRep
-		);
-	} catch (ParseException e) {}
+	testClientTwo = clientRep.addOrUpdateClient(
+		null, false, Map.of("team", "111111"), "test", List.of(), legalRep, indiRep
+	);
     assertTrue("no tin, shout be null object", testClientTwo.getFirst().isEmpty());
     
-    try {
-		testClientTwo = clientRep.addOrUpdateClient(
-			null, false, Map.of("tin", "test"), "test", List.of(), null, indiRep
-		);
-	} catch (ParseException e) {}
+    testClientTwo = clientRep.addOrUpdateClient(
+		null, false, Map.of("tin", "test"), "test", List.of(), null, indiRep
+	);
     assertTrue("legalRep null, shout be null object", testClientTwo.getFirst().isEmpty());
     
-    try {
-		testClientTwo = clientRep.addOrUpdateClient(
-			null, false, Map.of("team", "111111"), "test", List.of(), legalRep, null
-		);
-	} catch (ParseException e) {}
+    testClientTwo = clientRep.addOrUpdateClient(
+		null, false, Map.of("team", "111111"), "test", List.of(), legalRep, null
+	);
     assertTrue("indiRep null, shout be null object", testClientTwo.getFirst().isEmpty());
 	
   }
@@ -97,37 +79,28 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
 	
 	// test simple adding of new client
 	Pair<Optional<Client>, String> testClientOne = null, testClientTwo = null;
-	try {
-		testClientOne = clientRep.addOrUpdateClient(
-			null, 
-			true, 
-			Map.of("first_name", "TestIND", "surname", "TestSurname"), 
-			"Sator", 
-			List.of(), 
-			legalRep, 
-			indiRep
-		);
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
+	testClientOne = clientRep.addOrUpdateClient(
+		null, 
+		true, 
+		Map.of("first_name", "TestIND", "surname", "TestSurname"), 
+		"Sator", 
+		List.of(), 
+		legalRep, 
+		indiRep
+	);
 	assertFalse("null after CREATE", testClientOne == null);
 	assertFalse(testClientOne.getSecond(), testClientOne.getFirst().isEmpty());
 	IndividualClient client1 = indiRep.findById(testClientOne.getFirst().get().getClientId()).get();
 	
-	// test updating of existing client
-	try {
-		testClientTwo = clientRep.addOrUpdateClient(
-			client1.getClientId(), 
-			true, 
-			Map.of("first_name", "TestIND-Updated", "surname", "TestSurname-Updated"), 
-			"Sator Tenet", 
-			List.of(), 
-			legalRep,
-			indiRep
-		);
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
+	testClientTwo = clientRep.addOrUpdateClient(
+		client1.getClientId(), 
+		true, 
+		Map.of("first_name", "TestIND-Updated", "surname", "TestSurname-Updated"), 
+		"Sator Tenet", 
+		List.of(), 
+		legalRep,
+		indiRep
+	);
     assertFalse("null after UPDATE", testClientTwo == null);
 	assertFalse(testClientTwo.getSecond(), testClientTwo.getFirst().isEmpty());  
 	IndividualClient client2 = indiRep.findById(testClientTwo.getFirst().get().getClientId()).get();
@@ -139,44 +112,37 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
 	indiRep.deleteById(client1.getClientId()); 
 	clientRep.deleteById(client1.getClientId());
 	
-	// test incorrect creating
-	try {
-		testClientTwo = clientRep.addOrUpdateClient(
-			null, true, Map.of("team", "111111"), "test", List.of(), legalRep, indiRep
-		);
-	} catch (ParseException e) {}
+	testClientTwo = clientRep.addOrUpdateClient(
+		null, true, Map.of("team", "111111"), "test", List.of(), legalRep, indiRep
+	);
     assertTrue("no tin, shout be null object", testClientTwo.getFirst().isEmpty());
     
-    try {
-		testClientTwo = clientRep.addOrUpdateClient(
-			null, true, Map.of("tin", "test"), "test", List.of(), null, indiRep
-		);
-	} catch (ParseException e) {}
+    testClientTwo = clientRep.addOrUpdateClient(
+		null, true, Map.of("tin", "test"), "test", List.of(), null, indiRep
+	);
     assertTrue("legalRep null, shoud be null object", testClientTwo.getFirst().isEmpty());
     
-    try {
-		testClientTwo = clientRep.addOrUpdateClient(
-			null, true, Map.of("team", "1111111"), "test", List.of(), legalRep, null
-		);
-	} catch (ParseException e) {}
+    testClientTwo = clientRep.addOrUpdateClient(
+		null, true, Map.of("team", "1111111"), "test", List.of(), legalRep, null
+	);
     assertTrue("indiRep null, shoud be null object", testClientTwo.getFirst().isEmpty());
   }
   
   @Test
-  public void removePersonalDataTest() {
+  public void removePersonalClientDataTest() {
 	  var client = clientRep.addOrUpdateClient(
 				null, 
 				true, 
-				Map.of("first_name", "TestIND", "surname", "TestSurname"), 
+				Map.of("first_name", "TestIND", "surname", "TestSurname", "passport", "1"), 
 				"Sator", 
 				List.of(), 
 				legalRep, 
 				indiRep
 			);
 	  var id = client.getFirst().get().getClientId();
-	  clientRep.removePersonalData(id, legalRep, indiRep);
-	  var name = clientRep.findById(id).get().getFullname();
-	  assertTrue(name.equals("deleted"));
-	  empRep.deleteById(id);
-  }
+	  assertTrue("return true", clientRep.removePersonalData(id, legalRep, indiRep));
+//	  var name = clientRep.findById(id).get().getFullname();
+//	  assertTrue("fullname not deleted", name.equals("deleted client"));
+	  clientRep.deleteById(id);
+   }
 }

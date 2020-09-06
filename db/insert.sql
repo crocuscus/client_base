@@ -1,11 +1,11 @@
-INSERT INTO client (client_id, client_type, fullname) VALUES(1, false, 'Карл Фридрих Гаусс');
-INSERT INTO client (client_id, client_type, fullname) VALUES(2, false, 'Август Фердинанд Мебиус');
-INSERT INTO client (client_id, client_type, fullname) VALUES(3, false, 'Петер Густав Дирихле');
-INSERT INTO client (client_id, client_type, fullname) VALUES(4, false, 'Симеон Дени Пуассон');
-INSERT INTO client (client_id, client_type, fullname) VALUES(5, true, 'ООО Магнитогорский металлургический комбинат');
-INSERT INTO client (client_id, client_type, fullname) VALUES(6, true, 'OOO Московский нефтеперерабатывающий завод');
-INSERT INTO client (client_id, client_type, fullname) VALUES(7, true, 'Eli Lilly and Company');
-INSERT INTO client (client_id, client_type, fullname) VALUES(8, true, 'Intel Corporation');
+INSERT INTO client (client_id, client_type, fullname) VALUES(1, true, 'Карл Фридрих Гаусс');
+INSERT INTO client (client_id, client_type, fullname) VALUES(2, true, 'Август Фердинанд Мебиус');
+INSERT INTO client (client_id, client_type, fullname) VALUES(3, true, 'Петер Густав Дирихле');
+INSERT INTO client (client_id, client_type, fullname) VALUES(4, true, 'Симеон Дени Пуассон');
+INSERT INTO client (client_id, client_type, fullname) VALUES(5, false, 'ООО Магнитогорский металлургический комбинат');
+INSERT INTO client (client_id, client_type, fullname) VALUES(6, false, 'OOO Московский нефтеперерабатывающий завод');
+INSERT INTO client (client_id, client_type, fullname) VALUES(7, false, 'Eli Lilly and Company');
+INSERT INTO client (client_id, client_type, fullname) VALUES(8, false, 'Intel Corporation');
 
 INSERT INTO individual_client (client_id, first_name, second_name, surname) VALUES
 (1, 'Карл', 'Фридрих', 'Гаусс');

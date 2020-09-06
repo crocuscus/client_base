@@ -1,7 +1,5 @@
 package com.clientbase.dao;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,7 +29,7 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 			List<ClientContact> contacts, 
 			LegalClientRepository legalRep, 
 			IndividualClientRepository indiRep
-	) throws ParseException {
+	) {
 		if (clientType == null)
 			return Pair.of(Optional.empty(), "addOrUpdateClient: empty client type");
 		if (id != null && this.findById(id).get().getClientType() != clientType)
@@ -70,7 +68,8 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 		return Pair.of(Optional.of(client), "ok");
 	}
 	
-	public default void removePersonalData(
+	
+	public default Boolean removePersonalData(
 			Integer id, 
 			LegalClientRepository legalRep, 
 			IndividualClientRepository indiRep
@@ -79,14 +78,19 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 		if (id != null && getOne(id) != null) {
 			Client client = getOne(id);
 			if (client.getClientType()) {
-				indiRep.deleteById(id);
+				indiRep.addOrUpdateIndividualClient(id, Map.of(
+						"first_name", "Удаленный",
+						"surname", "Клиент"));
 			} else {
-				legalRep.deleteById(id);
+				legalRep.addOrUpdateLegalClient(id, Map.of(
+						"tin", "deleted" + id.toString()));
 			}
 			client.setFullname("deleted client");
-			client.setClientContacts(new ArrayList<ClientContact>());
+			client.setClientContacts(List.of());
 			saveAndFlush(client);
+			return true;
 		}
+		return false;
 	}
 
 		

@@ -31,7 +31,7 @@ public interface IndividualClientRepository extends JpaRepository<IndividualClie
 		return Pair.of(true, "ok");
 	}	
 		
-	public default void addOrUpdateIndividualClient(Integer id, Map<String, String> fields_dict) throws ParseException {
+	public default void addOrUpdateIndividualClient(Integer id, Map<String, String> fields_dict) {
 		IndividualClient client = new IndividualClient();
 		client.setFirstName(fields_dict.get("first_name"));
 		client.setSecondName(fields_dict.get("second_name"));
@@ -41,7 +41,12 @@ public interface IndividualClientRepository extends JpaRepository<IndividualClie
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.mm.yyyy");
 		String passport_date = fields_dict.get("passport_date");
 		if (passport_date != null)
-			client.setPassportDate(formatter.parse(passport_date));
+			try {
+				client.setPassportDate(formatter.parse(passport_date));
+			} catch (ParseException e) {
+				return ;
+				//impossible
+			}
 		client.setClientId(id);
 		saveAndFlush(client);
 	}

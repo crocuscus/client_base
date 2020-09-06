@@ -68,7 +68,6 @@ public class EmployeeRepositoryTest extends AbstractTestNGSpringContextTests {
 	  var id = new_emp.getEmployeeId();
 	  empRep.removePersonalData(id);
 	  var name = empRep.findById(id).get().getFirstName();
-	  System.out.println(name);
 	  assertTrue(name.equals("Сотрудник"));
 	  empRep.deleteById(id);
   }
