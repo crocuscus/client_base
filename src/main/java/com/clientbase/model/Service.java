@@ -23,7 +23,8 @@ public class Service implements Serializable {
 	@Column(name="prescence_flag")
 	private Boolean prescenceFlag;
 
-	private double price;
+	@Column(name="price")
+	private String price;
 
 	@Column(name="service_name")
 	private String serviceName;
@@ -51,11 +52,11 @@ public class Service implements Serializable {
 		this.prescenceFlag = prescenceFlag;
 	}
 
-	public double getPrice() {
+	public String getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(String	 price) {
 		this.price = price;
 	}
 

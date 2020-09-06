@@ -1,5 +1,6 @@
 package com.clientbase.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -68,7 +69,7 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 		return Pair.of(Optional.of(client), "ok");
 	}
 	
-	
+	@Transactional
 	public default Boolean removePersonalData(
 			Integer id, 
 			LegalClientRepository legalRep, 
@@ -86,7 +87,7 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 						"tin", "deleted" + id.toString()));
 			}
 			client.setFullname("deleted client");
-			client.setClientContacts(List.of());
+			client.setClientContacts(new ArrayList<>());
 			saveAndFlush(client);
 			return true;
 		}

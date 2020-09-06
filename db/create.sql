@@ -56,7 +56,7 @@ CREATE TABLE employee (
 CREATE TABLE service (
  service_id SMALLSERIAL PRIMARY KEY,
  service_name VARCHAR NOT NULL,
- price MONEY NOT NULL,
+ price VARCHAR NOT NULL,
  prescence_flag BOOL
 );
  

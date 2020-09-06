@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import org.springframework.data.util.Pair;
 
 import com.clientbase.model.Client;
+import com.clientbase.model.ClientContact;
 import com.clientbase.model.IndividualClient;
 
 @SpringBootTest
@@ -23,6 +24,7 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
   @Autowired ClientRepository clientRep;
   @Autowired LegalClientRepository legalRep;
   @Autowired IndividualClientRepository indiRep;
+  @Autowired ClientContactRepository contactRep;
 	
   @Test
   public void findByFullnameTest() {
@@ -130,19 +132,25 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
   
   @Test
   public void removePersonalClientDataTest() {
+	  ClientContact contact = new ClientContact();
+	  contact.setContactName("Sator");
+	  contact.setEmail("sator@tenet.me");
 	  var client = clientRep.addOrUpdateClient(
 				null, 
 				true, 
-				Map.of("first_name", "TestIND", "surname", "TestSurname", "passport", "1"), 
+				Map.of("first_name", "TestIND", "surname", "TestSurname", "passport", "4"), 
 				"Sator", 
-				List.of(), 
+				List.of(contact), 
 				legalRep, 
 				indiRep
 			);
 	  var id = client.getFirst().get().getClientId();
 	  assertTrue("return true", clientRep.removePersonalData(id, legalRep, indiRep));
-//	  var name = clientRep.findById(id).get().getFullname();
-//	  assertTrue("fullname not deleted", name.equals("deleted client"));
+	  var updatedClient = clientRep.findById(id).get();
+	  var name = updatedClient.getFullname();
+	  assertTrue("fullname not deleted", name.equals("deleted client"));
+	  assertTrue(contactRep.findByClient(updatedClient).isEmpty());
+	  indiRep.deleteById(id);
 	  clientRep.deleteById(id);
    }
 }
