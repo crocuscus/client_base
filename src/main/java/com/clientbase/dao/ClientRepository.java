@@ -1,6 +1,7 @@
 package com.clientbase.dao;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -67,6 +68,25 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 		}
 		
 		return Pair.of(Optional.of(client), "ok");
+	}
+	
+	public default void removePersonalData(
+			Integer id, 
+			LegalClientRepository legalRep, 
+			IndividualClientRepository indiRep
+		) {
+		
+		if (id != null && getOne(id) != null) {
+			Client client = getOne(id);
+			if (client.getClientType()) {
+				indiRep.deleteById(id);
+			} else {
+				legalRep.deleteById(id);
+			}
+			client.setFullname("deleted client");
+			client.setClientContacts(new ArrayList<ClientContact>());
+			saveAndFlush(client);
+		}
 	}
 
 		

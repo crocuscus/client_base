@@ -51,7 +51,7 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
 		return Pair.of(Optional.of(order), "ok");
 	}
 	
-	@Query(value = "select client.fullname," + 
+	@Query(value = "select client.fulln	ame," + 
 			"   service.service_name," + 
 			"   employee.first_name," + 
 			"   order_history.from_dttm," + 
