@@ -2,6 +2,7 @@ package com.clientbase.dao;
 
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotSame;
 
@@ -33,7 +34,7 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
   
   
   @Test
-  public void addOrUpdateTest_Legal() {
+  public void addOrUpdateTestLegal() {
 	
 	// test simple adding of new client
 	Pair<Optional<Client>, String> testClientOne = null, testClientTwo = null;
@@ -92,7 +93,7 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
   }
   
   @Test
-  public void addOrUpdateTest_Individual() {
+  public void addOrUpdateTestIndividual() {
 	
 	// test simple adding of new client
 	Pair<Optional<Client>, String> testClientOne = null, testClientTwo = null;
@@ -109,7 +110,7 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
 	} catch (ParseException e) {
 		e.printStackTrace();
 	}
-	assertFalse("null after CREATE, it's fail иди дебагай", testClientOne == null);
+	assertFalse("null after CREATE", testClientOne == null);
 	assertFalse(testClientOne.getSecond(), testClientOne.getFirst().isEmpty());
 	IndividualClient client1 = indiRep.findById(testClientOne.getFirst().get().getClientId()).get();
 	
@@ -155,10 +156,27 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
     
     try {
 		testClientTwo = clientRep.addOrUpdateClient(
-			null, true, Map.of("team", "111111w11"), "test", List.of(), legalRep, null
+			null, true, Map.of("team", "1111111"), "test", List.of(), legalRep, null
 		);
 	} catch (ParseException e) {}
     assertTrue("indiRep null, shoud be null object", testClientTwo.getFirst().isEmpty());
-	
+  }
+  
+  @Test
+  public void removePersonalDataTest() {
+	  var client = clientRep.addOrUpdateClient(
+				null, 
+				true, 
+				Map.of("first_name", "TestIND", "surname", "TestSurname"), 
+				"Sator", 
+				List.of(), 
+				legalRep, 
+				indiRep
+			);
+	  var id = client.getFirst().get().getClientId();
+	  clientRep.removePersonalData(id, legalRep, indiRep);
+	  var name = clientRep.findById(id).get().getFullname();
+	  assertTrue(name.equals("deleted"));
+	  empRep.deleteById(id);
   }
 }
