@@ -69,6 +69,9 @@ INSERT INTO service (service_id, service_name, prescence_flag, price)
 VALUES (3, 'Кассационная жалоба', true, '4000');
 INSERT INTO service (service_id, service_name, prescence_flag, price) 
 VALUES (4, 'Представительство в суде', true, '7000');
+INSERT INTO service (service_id, service_name, prescence_flag, price) 
+VALUES (5, 'Бесплатный совет', true, 'бесплатно');
+
 
 INSERT INTO order_history(order_id, client_id, service_id, from_dttm)
 VALUES (1, 1, 1, '23.02.2020');
