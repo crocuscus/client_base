@@ -25,14 +25,7 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
   @Autowired LegalClientRepository legalRep;
   @Autowired IndividualClientRepository indiRep;
   @Autowired ClientContactRepository contactRep;
-	
-  @Test
-  public void findByFullnameTest() {
-	 List<Client> intel_search = clientRep.findByFullname("Intel");
-	 assertFalse(intel_search.isEmpty());
-  }
-  
-  
+	  
   @Test
   public void addOrUpdateTestLegal() {
 	

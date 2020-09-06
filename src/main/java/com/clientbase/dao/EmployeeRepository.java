@@ -17,7 +17,7 @@ import com.clientbase.model.EmployeeStatus;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
-	@Query(value = "select * from employee where fullname @@ :name_part", nativeQuery = true)
+	@Query(value = "select * from employee where surname || ' ' || first_name @@ :name_part", nativeQuery = true)
 	public List<Employee> findByFullname(String name_part);
 	
 	public default Pair<Optional<Employee>, String> addOrUpdateEmployee(Integer id,	EmployeeStatus status, Map<String, String> fields_dict) {
