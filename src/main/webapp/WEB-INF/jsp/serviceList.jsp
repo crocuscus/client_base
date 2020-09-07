@@ -44,7 +44,7 @@
 		</div>
 		<table>
 			<tr id="tableHead">
-				<th>Наименование услоги</th><th>Цена (руб.)</th>
+				<th>Наименование услуги</th><th>Цена (руб.)</th>
 			</tr>
 		<c:forEach items="${ serviceList }" var="service">
 			<tr id="tableBody">

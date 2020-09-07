@@ -23,7 +23,7 @@ public class EmployeeRepositoryTest extends AbstractTestNGSpringContextTests {
 	  var new_emp = empRep.addOrUpdateEmployee(null, null, Map.of(
 			  "first_name", "Intel",
 			  "surname", "Миллер",
-			  "passport", "2345",
+			  "passport", "1",
 			  "passport_date", "11.11.1981",
 			  "passport_from_whom", "Ленинград, РСФСР, СССР"));
 	 assertTrue(new_emp.getFirst().isPresent());
@@ -41,7 +41,7 @@ public class EmployeeRepositoryTest extends AbstractTestNGSpringContextTests {
 	  // bad data
 	  assertFalse(empRep.addOrUpdateEmployee(null, null, Map.of(
 			  "surname", "Миллер",
-			  "passport", "123456",
+			  "passport", "2",
 			  "passport_date", "11.11.1981",
 			  "passport_from_whom", "Ленинград, РСФСР, СССР"	
 			)).getFirst().isPresent());
@@ -49,7 +49,7 @@ public class EmployeeRepositoryTest extends AbstractTestNGSpringContextTests {
 	  assertFalse(empRep.addOrUpdateEmployee(null, null, Map.of(
 			  "first_name", "Алексей",
 			  "surname", "Миллер",
-			  "passport", "123456",
+			  "passport", "3",
 			  "passport_date", "1981-11-11",
 			  "passport_from_whom", "Ленинград, РСФСР, СССР"	
 			)).getFirst().isPresent());
@@ -67,14 +67,14 @@ public class EmployeeRepositoryTest extends AbstractTestNGSpringContextTests {
 	  assertTrue(empRep.addOrUpdateEmployee(id, empStatRep.findById((short) 2).get(), Map.of(
 			  "first_name", "Генри",
 			  "surname", "Мюллер",
-			  "passport", "5904523536",
+			  "passport", "4",
 			  "passport_date", "28.04.1914",
 			  "passport_from_whom", "Мюнхен"
 			)).getFirst().isPresent());
 	  assertTrue(empRep.findById(id).get().getFirstName().equals("Генри"));
 	  // update old employee
 	  
-	  empRep.delete(new_emp.getFirst().get());
+	  empRep.deleteById(id);
 
   }
   
@@ -83,7 +83,7 @@ public class EmployeeRepositoryTest extends AbstractTestNGSpringContextTests {
 	  var new_emp = empRep.addOrUpdateEmployee(null, null, Map.of(
 			  "first_name", "Алексей",	
 			  "surname", "Миллер",
-			  "passport", "1234567",	
+			  "passport", "5",	
 			  "passport_date", "11.11.1981",
 			  "passport_from_whom", "Ленинград, РСФСР, СССР")).getFirst().get();
 	  var id = new_emp.getEmployeeId();
