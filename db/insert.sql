@@ -60,6 +60,10 @@ INSERT INTO employee (employee_id, first_name, second_name, surname,
 	passport, passport_date, passport_from_whom) VALUES
 (4, 'Пауль', 'Йозеф', 'Геббельс',
 	'6624977572', '29.10.1901', 'Райдт, Пруссия');
+INSERT INTO employee (employee_id, first_name, surname,
+        passport, passport_date, passport_from_whom) VALUES
+(5, 'Макс', 'Фрай',
+        '0000000001', '01.01.1970', 'Эхо');
 
 INSERT INTO service (service_id, service_name, prescence_flag, price) 
 VALUES (1, 'Письменная консультация', true, '1000');

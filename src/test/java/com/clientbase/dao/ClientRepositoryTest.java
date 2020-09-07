@@ -27,6 +27,24 @@ public class ClientRepositoryTest extends AbstractTestNGSpringContextTests {
   @Autowired ClientContactRepository contactRep;
 	  
   @Test
+  public void findByFullnameTest() {
+	  var client = clientRep.addOrUpdateClient(
+				null, 
+				true, 
+				Map.of("first_name", "TestIND", "surname", "TestSurname"), 
+				"Tenet", 
+				List.of(), 
+				legalRep, 
+				indiRep
+			).getFirst().get();
+	 List<Client> search_result = clientRep.findByFullname("Tenet");
+	 assertFalse("nothing found", search_result.isEmpty());
+	 indiRep.deleteById(client.getClientId());
+	 clientRep.delete(client);
+  }
+  
+  
+  @Test
   public void addOrUpdateTestLegal() {
 	
 	// test simple adding of new client

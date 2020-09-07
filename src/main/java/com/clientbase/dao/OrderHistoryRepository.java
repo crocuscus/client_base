@@ -21,7 +21,6 @@ import com.clientbase.model.Service;
 @Repository
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Integer> {
 	
-	
 	public default Pair<Optional<OrderHistory>, String> registerOrder(Client client, Service service, String from, String to) {
 		if (client == null)
 			return Pair.of(Optional.empty(), "registerOrder: empty client");
@@ -55,7 +54,7 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
 		return Pair.of(Optional.of(order), "ok");
 	}
 	
-	@Query(value = "select client.fulln	ame," + 
+	@Query(value = "select client.fullname," + 
 			"   service.service_name," + 
 			"   employee.first_name," + 
 			"   order_history.from_dttm," + 
@@ -80,6 +79,10 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
 			Timestamp to, 
 			List<Short> services,
 			ServiceRepository servRep) {
+		System.out.println("bye");
+
+		if (clientRep == null || empRep == null || servRep == null)
+			return Pair.of(Optional.empty(), "null repository");
 		if (clients == null || clients.isEmpty())
 			clients = clientRep.findAll().stream().map(x -> x.getClientId()).collect(Collectors.toList());
 		if (employees == null || employees.isEmpty())
