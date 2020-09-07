@@ -48,62 +48,75 @@
 			<p/>
 			Поик сотрудников <a href="/staff">по ссылке</a>
 		</c:if>
-		<c:if test="${ !isEmpty }">
-			<c:if test="${ !isEditMode }">
-				<form>
-					<button
-						type="submit"
-						name="isEditMode"
-						value="true"
-						
-						name="id"
-						value="${ employee.getEmployeeId() }"
-					>
-						Редактировать
-					</button>
-				</form>
-				<table>
-					<tr>
-						<td>Имя</td><td>${ employee.getFirstName() }</td>
-					</tr>
-					<tr>
-						<td>Фамилия</td><td>${ employee.getSurname() }</td>
-					</tr>
-					<tr>
-						<td>Отчество</td><td>${ employee.getSecondName() }</td>
-					</tr>
-				</table>
+		<c:if test="${ wasEdit }">
+			<c:if test="${ isUpdateFailed }">
+				<span>Update fail, try again</span>
+				<p/>
+				<span>${ updateFailReason }</span>
 			</c:if>
-			<c:if test="${ isEditMode }">
-				<form>
-					<button
-						type="submit"
-						name="edit"
-						value="true"
-					>
-						Сохранить
-					</button>
-					<table>
-						<tr>
-							<td>Имя</td>
-							<td>
-								<input 
-									type="text"
-									name="FirstName"
-									value="${ employee.getFirstName() }"
-								/>
-							</td>
-						</tr>
-						<tr>
-							<td>Фамилия</td><td>${ employee.getSurname() }</td>
-						</tr>
-						<tr>
-							<td>Отчество</td><td>${ employee.getSecondName() }</td>
-						</tr>
-					</table>
-				</form>
+			<c:if test="${ !isUpdateFailed }">
+				<span>Update success!</span>
 			</c:if>
 		</c:if>
-
+		<c:if test="${ !isEmpty }">
+			<form
+			>
+				<button
+					name="edit"
+					value="true"
+					type="submit"
+				>
+					Сохранить изменения
+				</button>
+				<table>
+					<tr>
+						<td>ID</td>
+						<td>
+							<input name="id" value="${ employee.getEmployeeId() }" readOnly=true
+							/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>Имя</td>
+						<td>
+							<input type="text" name="first_name" value="${ employee.getFirstName() }"/>
+						</td>
+					</tr>
+					<tr>
+						<td>Фамилия</td>
+						<td>
+							<input type="text" name="surname" value="${ employee.getSurname() }"/>
+						</td>
+					</tr>
+					<tr>
+						<td>Отчество</td>
+						<td>
+							<input type="text" name="second_name" value="${ employee.getSecondName() }"/>
+						</td>
+					</tr>
+					<tr>
+						<td>Номер паспорта</td>
+						<td>
+							<input type="text" name="passport" value="${ employee.getPassport() }"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>Дата валидности</td>
+						<td>
+							<input type="text" name="passport_date" value="${ employee.getPassportDate() }"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>Откуда</td>
+						<td>
+							<input type="text" name="passport_from_whom" value="${ employee.getPassportFromWhom() }"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</c:if>
 	</div>
 </div>

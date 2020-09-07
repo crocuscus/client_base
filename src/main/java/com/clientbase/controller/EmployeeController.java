@@ -1,6 +1,5 @@
 package com.clientbase.controller;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,9 +21,14 @@ public class EmployeeController {
 	@GetMapping("/employee")
 	public String serviceList(
 		@RequestParam(name="id", required=false, defaultValue="") String empoleeIDString,
-		@RequestParam(name="isEditMode", required=false, defaultValue="false") String isEditModeString,
 		@RequestParam(name="edit", required=false, defaultValue="false") String editString,
-		@RequestParam(name="firstName", required=false, defaultValue="") String firstName,
+		
+		@RequestParam(name="first_name", required=false, defaultValue="") String first_name,
+		@RequestParam(name="second_name", required=false, defaultValue="") String second_name,
+		@RequestParam(name="surname", required=false, defaultValue="") String surname,
+		@RequestParam(name="passport", required=false, defaultValue="") String passport,
+		@RequestParam(name="passport_date", required=false, defaultValue="") String passport_date,
+		@RequestParam(name="passport_from_whom", required=false, defaultValue="") String passport_from_whom,
 		Model model
 	) 
 	{
@@ -33,6 +37,7 @@ public class EmployeeController {
 		}
 		
 		Integer employeeID = Integer.decode(empoleeIDString);
+		Boolean edit = Boolean.parseBoolean(editString);
 		
 		System.out.println("Employee id:");
 		System.out.println(employeeID);
@@ -43,41 +48,39 @@ public class EmployeeController {
 			model.addAttribute("isEmpty", true);
 			return "employee";
 		}
+		model.addAttribute("isEmpty", false);
 		
-		// case - just give me information
-		Boolean isEditMode = Boolean.parseBoolean(isEditModeString);
-		Boolean edit = Boolean.parseBoolean(editString);
-		if (!isEditMode || !edit) {
-			model.addAttribute("isEmpty", false);
-			model.addAttribute("isEditMode", false);
+		if (!edit) {
 			model.addAttribute("employee", possibleEmployee.get());
+			model.addAttribute("wasEdit", false);
 			return "employee";
 		}
+		model.addAttribute("wasEdit", true);
 		
 		// last case - update information and get OR new version of employee OR fail flag and fail reason
 		
 		Employee empl = possibleEmployee.get();
-		if (firstName.length() == 0) {
-			firstName = empl.getFirstName();
-		}
 		
 		Pair<Optional<Employee>, String> updateResult = empRep.addOrUpdateEmployee(
 			empl.getEmployeeId(), 
 			empl.getEmployeeStatus(), 
-			Map.of("first_name", firstName)
+			Map.of(
+				"first_name", first_name,
+				"second_name", second_name,
+				"surname", surname,
+				"passport", passport, 
+				"passport_date", passport_date, 
+				"passport_from_whom", passport_from_whom
+			)
 		);
+		
 		if (updateResult.getFirst().isEmpty()) {
-			model.addAttribute("isEmpty", false);
-			model.addAttribute("isEditMode", true);
 			model.addAttribute("isUpdateFailed", true);
 			model.addAttribute("updateFailReason", updateResult.getSecond());
 			model.addAttribute("employee", possibleEmployee.get());
 		
 			return "employee";
 		}
-		
-		model.addAttribute("isEmpty", false);
-		model.addAttribute("isEditMode", false);
 		model.addAttribute("isUpdateFailed", false);
 		model.addAttribute("employee", updateResult.getFirst().get());
 	
