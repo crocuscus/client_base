@@ -23,7 +23,7 @@ public class EmployeeRepositoryTest extends AbstractTestNGSpringContextTests {
 	  var new_emp = empRep.addOrUpdateEmployee(null, null, Map.of(
 			  "first_name", "Intel",
 			  "surname", "Миллер",
-			  "passport", "1",
+			  "passport", "12",
 			  "passport_date", "11.11.1981",
 			  "passport_from_whom", "Ленинград, РСФСР, СССР"));
 	 assertTrue(new_emp.getFirst().isPresent());
