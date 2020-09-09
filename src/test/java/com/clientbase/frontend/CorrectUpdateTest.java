@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.Dimension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -29,12 +30,13 @@ public class CorrectUpdateTest  extends AbstractTestNGSpringContextTests  {
 	@Autowired EmployeeRepository empRep;
 	private WebDriver driver;
 	JavascriptExecutor js;
+	@Value("com.package.firefoxpath") String FfPath;
  
 	
 	@Test
 	public void correctUpdate() {
-		System.setProperty("webdriver.gecko.driver", "/home/crocuscus/geckodriver-v0.27.0-linux64/geckodriver");
-
+		
+		System.setProperty("webdriver.gecko.driver", FfPath);
 		driver = new FirefoxDriver();
 		js = (JavascriptExecutor) driver;
 		
